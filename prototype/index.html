@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0B1524" />
+    <meta name="description" content="«Цифровой диспетчер» — демо-стенд агентного слоя. СИРИУС ПРО." />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Цифровой диспетчер · демо-стенд v2.5</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" />
+    </noscript>
+
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #0B1524;
+        color: #D9E4F5;
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                     Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+      }
+      #root { min-width: 1280px; }
+      body {
+        overflow-x: auto;
+        padding: env(safe-area-inset-top) env(safe-area-inset-right)
+                 env(safe-area-inset-bottom) env(safe-area-inset-left);
+      }
+
+      /* ═══ Мобильная заглушка ═══ */
+      .m-gate {
+        display: none;
+        position: fixed; inset: 0;
+        background: linear-gradient(180deg, #0B1524 0%, #10203A 100%);
+        color: #D9E4F5;
+        z-index: 10000;
+        padding: 32px 24px;
+        overflow-y: auto;
+      }
+      .m-gate__inner {
+        min-height: 100%;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        text-align: center; max-width: 480px; margin: 0 auto; gap: 24px;
+      }
+      .m-gate__badge {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 6px 14px; border-radius: 999px;
+        background: rgba(227, 6, 17, 0.12);
+        border: 1px solid rgba(227, 6, 17, 0.35);
+        color: #FF6B7A;
+        font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+      }
+      .m-gate__badge::before {
+        content: ''; width: 6px; height: 6px; border-radius: 50%; background: #E30611;
+      }
+      .m-gate__title {
+        margin: 0; font-size: 22px; line-height: 1.3; font-weight: 700; color: #F0F6FF;
+        letter-spacing: -0.3px;
+      }
+      .m-gate__subtitle {
+        margin: 0; font-size: 14px; line-height: 1.55; color: #9FB1CC;
+      }
+      .m-gate__card {
+        width: 100%; padding: 20px;
+        background: rgba(16, 32, 58, 0.6);
+        border: 1px solid rgba(56, 189, 248, 0.18);
+        border-radius: 12px; text-align: left;
+      }
+      .m-gate__card-title {
+        font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+        color: #38BDF8; margin: 0 0 12px;
+      }
+      .m-gate__list {
+        margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px;
+        font-size: 13px; color: #B8C8E0; line-height: 1.5;
+      }
+      .m-gate__list li { display: flex; gap: 10px; align-items: flex-start; }
+      .m-gate__list li::before {
+        content: '›'; color: #38BDF8; font-weight: 700; flex-shrink: 0;
+      }
+      .m-gate__actions {
+        width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 8px;
+      }
+      .m-gate__btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 14px 20px; border-radius: 10px;
+        font-family: inherit; font-size: 14px; font-weight: 600;
+        cursor: pointer; border: none; text-decoration: none;
+        transition: opacity 0.15s ease, transform 0.05s ease;
+      }
+      .m-gate__btn:active { transform: scale(0.98); }
+      .m-gate__btn--primary {
+        background: #E30611; color: #FFF;
+      }
+      .m-gate__btn--primary:hover { opacity: 0.92; }
+      .m-gate__btn--ghost {
+        background: transparent; color: #9FB1CC;
+        border: 1px solid rgba(159, 177, 204, 0.25);
+      }
+      .m-gate__btn--ghost:hover { border-color: rgba(159, 177, 204, 0.5); color: #D9E4F5; }
+      .m-gate__footer {
+        font-family: 'IBM Plex Mono', ui-monospace, monospace;
+        font-size: 10px; letter-spacing: 1.5px; color: #5A6B85;
+        text-transform: uppercase; margin-top: 8px;
+      }
+
+      /* включаем гейт на узких экранах */
+      @media (max-width: 1023px) {
+        .m-gate { display: block; }
+        html, body { overflow: hidden; height: 100%; }
+      }
+
+      /* если пользователь нажал "показать всё равно" — снимаем гейт через класс */
+      html.m-force .m-gate { display: none !important; }
+      html.m-force, html.m-force body { overflow: auto !important; height: auto !important; }
+
+      /* boot-screen для десктопа (до маунта React) */
+      .boot-screen {
+        position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+        background: #0B1524; color: #7E90AC; font-size: 14px; letter-spacing: .5px;
+        z-index: 9999; transition: opacity .3s ease;
+      }
+      .boot-screen.hide { opacity: 0; pointer-events: none; }
+      .boot-dot { width: 8px; height: 8px; border-radius: 50%; background: #E30611;
+                  margin-right: 10px; animation: bootPulse 1.2s infinite ease-in-out; }
+      @keyframes bootPulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+      .nojs {
+        max-width: 640px; margin: 60px auto; padding: 24px;
+        background: #12203A; border: 1px solid #1E3252; border-radius: 12px;
+        font-size: 14px; line-height: 1.55;
+      }
+      .nojs h1 { margin: 0 0 12px; font-size: 18px; color: #D9E4F5; }
+      .nojs code { background: #0E1A30; padding: 2px 6px; border-radius: 4px; color: #38BDF8; }
+    </style>
+
+    <script>
+      // Раннее восстановление force-режима из localStorage до отрисовки —
+      // чтобы у уже согласного пользователя гейт не мелькал.
+      (function() {
+        try {
+          if (localStorage.getItem('mws-demo-force-mobile') === '1') {
+            document.documentElement.classList.add('m-force');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Мобильная заглушка (виден только на <1024px) -->
+    <div class="m-gate" id="__m_gate">
+      <div class="m-gate__inner">
+        <span class="m-gate__badge">СТЕНД РАССЧИТАН НА ДЕСКТОП</span>
+
+        <h1 class="m-gate__title">
+          «Цифровой диспетчер»<br />
+          <span style="color: #7E90AC; font-weight: 500;">демо-стенд v2.5</span>
+        </h1>
+
+        <p class="m-gate__subtitle">
+          Стенд одновременно показывает несколько панелей — карту парка,
+          ленту инцидентов, действия трёх агентов и метрики владельца.
+          На мобильном экране он ужимается до нечитаемой сетки —
+          поэтому мы просим открыть его с ноутбука или планшета.
+        </p>
+
+        <div class="m-gate__card">
+          <div class="m-gate__card-title">РЕКОМЕНДУЕМ</div>
+          <ul class="m-gate__list">
+            <li>Открыть <b style="color:#D9E4F5">ciriycpro.online/AI-telematica-demo</b>
+                с ноутбука или планшета (минимум 1024&nbsp;px ширины)</li>
+            <li>Или переслать ссылку себе на почту и открыть позже</li>
+          </ul>
+        </div>
+
+        <div class="m-gate__actions">
+          <a class="m-gate__btn m-gate__btn--primary"
+             href="mailto:?subject=Демо-стенд%20«Цифровой%20диспетчер»&body=Открой%20на%20компьютере%3A%20https%3A%2F%2Fciriycpro.online%2FAI-telematica-demo%2F">
+            Отправить ссылку себе на почту
+          </a>
+          <button class="m-gate__btn m-gate__btn--ghost" onclick="
+            try { localStorage.setItem('mws-demo-force-mobile', '1'); } catch(e){}
+            document.documentElement.classList.add('m-force');
+            window.scrollTo(0, 0);
+          ">
+            Показать стенд на этом экране
+          </button>
+        </div>
+
+        <div class="m-gate__footer">СИРИУС ПРО · v2.5</div>
+      </div>
+    </div>
+
+    <div id="root">
+      <div class="boot-screen" id="__boot"><span class="boot-dot"></span> Инициализация стенда…</div>
+    </div>
+    <noscript>
+      <div class="nojs">
+        <h1>Требуется JavaScript</h1>
+        <p>Демо-стенд «Цифровой диспетчер» — интерактивный React-прототип.
+           Включите JavaScript в браузере и обновите страницу.</p>
+        <p style="color: #7E90AC">Поддерживаются Chrome 87+, Safari 12+, Firefox 78+, Edge 88+.</p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
