@@ -784,11 +784,34 @@ function UnderHood({ events, activeEv, sim }) {
               const isCur = cur && (cur.f === id || cur.t === id);
               return (
                 <g key={id} opacity={ev ? (on ? 1 : 0.38) : 1}>
-                  <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="10" fill={C.panel}
-                    stroke={isCur ? C.red : on ? C.cyan : C.line} strokeWidth={isCur ? 2 : 1}
-                    className={isCur ? "pulse" : ""} />
-                  <text x={n.x + 10} y={n.y + 22} fill={on || !ev ? C.text : C.dim} fontSize="12" fontWeight="800">{n.t}</text>
-                  <text x={n.x + 10} y={n.y + 38} fill={C.dim} fontSize="9" style={mono}>{n.s}</text>
+                  {(() => {
+                    const maxChars = Math.floor((n.w - 14) / 5.5);
+                    const s = n.s;
+                    let line1 = s, line2 = "";
+                    if (s.length > maxChars) {
+                      const seps = [...s.matchAll(/ · /g)].map(m => m.index);
+                      const mid = s.length / 2;
+                      const best = seps.reduce((b, i) =>
+                        (b === -1 || Math.abs(i - mid) < Math.abs(b - mid)) ? i : b, -1);
+                      if (best > 0 && best < s.length - 3) {
+                        line1 = s.slice(0, best);
+                        line2 = s.slice(best + 3);
+                      }
+                    }
+                    const extraH = line2 ? 12 : 0;
+                    return (
+                      <>
+                        <rect x={n.x} y={n.y} width={n.w} height={n.h + extraH} rx="10" fill={C.panel}
+                          stroke={isCur ? C.red : on ? C.cyan : C.line} strokeWidth={isCur ? 2 : 1}
+                          className={isCur ? "pulse" : ""} />
+                        <text x={n.x + 10} y={n.y + 22} fill={on || !ev ? C.text : C.dim} fontSize="12" fontWeight="800">{n.t}</text>
+                        <text x={n.x + 10} y={n.y + 38} fill={C.dim} fontSize="9" style={mono}>
+                          <tspan>{line1}</tspan>
+                          {line2 && <tspan x={n.x + 10} dy="11">{line2}</tspan>}
+                        </text>
+                      </>
+                    );
+                  })()}
                 </g>
               );
             })}
