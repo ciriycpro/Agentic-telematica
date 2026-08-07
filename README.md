@@ -13,7 +13,7 @@
 
 - 🖥️ **Живой прототип** → [ciriycpro.online/AI-telematica-demo](https://ciriycpro.online/AI-telematica-demo/) (лучше открывать на десктопе, ≥1024px)
 - 📄 **Бриф на одну страницу** → [`docs/brief.md`](docs/brief.md)
-- 📘 **Полный документ решения** → [`docs/full.md`](docs/full.md)
+- 📘 **Полный документ решения** → [`docs/full.md`](docs/full.md) (v4.3, включая Приложение Г — соответствие регуляторным требованиям РФ)
 - ⚙️ **Исходники прототипа** → [`prototype/`](prototype/) (React + Vite, ~800 строк)
 
 ---
