@@ -5,7 +5,7 @@
 (инциденты, диспетчеризация, аналитик), панель владельца с метриками «теста
 зеркала», живой чат с аналитиком через LLM.
 
-**Живая версия:** [ciriycpro.online/AI-telematica-demo](https://ciriycpro.online/AI-telematica-demo/)
+**Живая версия:** [ciriyc.ru/AI-telematica-demo](https://ciriyc.ru/AI-telematica-demo/)
 
 Стек: React 18 + Vite 5, никаких внешних UI-библиотек. Один компонент
 (`src/App.jsx`, ~800 строк), production-сборка — статика (`~64 КБ gzip`).
@@ -69,7 +69,7 @@ export default defineConfig({
 ```
 
 После `npm run build` содержимое `dist/` можно класть в подпапку GitHub Pages
-репозитория. Пример живой раскатки — этот стенд на `ciriycpro.online/AI-telematica-demo`
+репозитория. Пример живой раскатки — этот стенд на `ciriyc.ru/AI-telematica-demo`
 (отдельный репо-контейнер, не этот).
 
 ---

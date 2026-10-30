@@ -11,7 +11,7 @@
 
 ## Ссылки
 
-- 🖥️ **Живой прототип** → [ciriycpro.online/AI-telematica-demo](https://ciriycpro.online/AI-telematica-demo/) (лучше открывать на десктопе, ≥1024px)
+- 🖥️ **Живой прототип** → [ciriyc.ru/AI-telematica-demo](https://ciriyc.ru/AI-telematica-demo/) (лучше открывать на десктопе, ≥1024px)
 - 📄 **Бриф на одну страницу** → [`docs/brief.md`](docs/brief.md)
 - 📘 **Полный документ решения** → [`docs/full.md`](docs/full.md) (v4.3, включая Приложение Г — соответствие регуляторным требованиям РФ)
 - ⚙️ **Исходники прототипа** → [`prototype/`](prototype/) (React + Vite, ~800 строк)
@@ -101,7 +101,7 @@ Agentic-telematica/
 
 **Артём Якшин** · СИРИУС ПРО
 
-- Email: `hello@ciriycpro.online`
+- Email: `hello@ciriyc.ru`
 - GitHub: [@ciriycpro](https://github.com/ciriycpro)
 
 ## Лицензия
