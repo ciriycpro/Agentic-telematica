@@ -101,7 +101,7 @@ Agentic-telematica/
 
 **Артём Якшин** · СИРИУС ПРО
 
-- Email: `hello@ciriyc.ru`
+- Email: `inbox@ciriyc.ru`
 - GitHub: [@ciriycpro](https://github.com/ciriycpro)
 
 ## Лицензия
